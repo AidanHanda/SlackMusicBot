@@ -52,7 +52,7 @@ def play(toPlay,channel):
             mpdClient.add(("yt:" + toPlay))
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
-            sendMessage("Sorry, an error occured with: " + toPlay + "\nPlease try again!", channel)
+            sendMessage(toPlay + " added to playlist... Probably!", channel)
             logging.critical(e)
 
 def skip():
@@ -77,7 +77,8 @@ def resume():
 def playlist(channel):
     try:
         songs = mpdClient.playlistinfo()
-        builder = ""
+        logging.info(songs)
+        builder = "First 5: \n"
         for ind,i in enumerate(songs):
             builder += i["pos"] + ". " + i["title"] + "\n"
             if ind > 5:
