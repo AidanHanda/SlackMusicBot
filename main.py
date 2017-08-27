@@ -77,7 +77,6 @@ def resume():
 def playlist(channel):
     try:
         songs = mpdClient.playlistinfo()
-        logging.info(songs)
         builder = "First 5: \n"
         for ind,i in enumerate(songs):
             builder += i["pos"] + ". " + i["title"] + "\n"
