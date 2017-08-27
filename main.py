@@ -30,16 +30,18 @@ def poll():
 def interpret(message):
 
     words = message['text'].replace(identifier,'').split()
-
+    channel = message['channel']
     for ind,word in enumerate(words):
         if word == "play" and len(words) > ind+1:
-            play(words[ind+1][1:-1], message['channel'])
+            play(words[ind+1][1:-1], channel )
         elif word == "skip":
             skip()
         elif word == "pause":
             pause()
         elif word == "play":
-            play()
+            resume()
+        elif word == "playlist":
+            playlist(channel)
 
 def play(toPlay,channel):
     if "youtube" in toPlay:
@@ -53,17 +55,28 @@ def skip():
     except:
         pass
 
-def play():
-    try:
-        mpdClient.play()
-    except:
-        pass
-
 def pause():
     try:
         mpdClient.pause()
     except:
         pass
+
+def resume():
+    try:
+        mpdClient.play()
+    except:
+        pass
+
+def playlist(channel):
+    try:
+        songs = mpdClient.playlistinfo()
+        builder = ""
+        for i in songs:
+            builder += i["pos"] + ". " + i["title"] + "\n"
+        sendMessage(builder,channel)
+    except:
+        pass
+
 
 def run(data):
     #Slack
