@@ -1,0 +1,5 @@
+slack:
+    api-key: !!!!!
+mopidy:
+    host: akhanda-pi.local
+    port: 6600
