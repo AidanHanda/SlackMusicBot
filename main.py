@@ -88,12 +88,16 @@ def run(data):
     global mpdClient
     global sc
     sc = SlackClient(data["slack"]["api-key"])
+
     #MPD
     mpdClient.timeout = 10
     mpdClient.idletimeout = None
+    mpdClient.consume = 1
     hostname = data["mopidy"]["host"]
     port = data["mopidy"]["port"]
     mpdClient.connect(host=hostname, port=port)
+
+    #Start polling
     poll()
 
 
