@@ -45,6 +45,8 @@ def interpret(message):
             resume()
         elif word == "playlist":
             playlist(channel)
+        elif word == "current":
+            current(channel)
 
 def play(toPlay,channel):
     if "youtube" in toPlay:
@@ -59,20 +61,26 @@ def skip():
 
     try:
         mpdClient.next()
-    except:
-        pass
+    except Exception as e:
+        logging.error(e)
 
 def pause():
     try:
         mpdClient.pause()
-    except:
-        pass
+    except Exception as e:
+        logging.error(e)
 
 def resume():
     try:
         mpdClient.play()
-    except:
-        pass
+    except Exception as e:
+        logging.error(e)
+
+def current(channel):
+    try:
+        sendMessage(mpdClient.currentsong()["title"],channel=channel)
+    except Exception as e:
+        logging.error(e)
 
 def playlist(channel):
     try:
