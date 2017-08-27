@@ -48,8 +48,11 @@ def interpret(message):
 
 def play(toPlay,channel):
     if "youtube" in toPlay:
-        mpdClient.add(("yt:" + toPlay))
-        sendMessage(toPlay + " added to playlist!", channel)
+        try:
+            mpdClient.add(("yt:" + toPlay))
+            sendMessage(toPlay + " added to playlist!", channel)
+        except:
+            sendMessage("Sorry, an error occured with: " + toPlay + "\nPlease try again!")
 
 def skip():
 
