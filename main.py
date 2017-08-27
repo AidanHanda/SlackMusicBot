@@ -51,8 +51,9 @@ def play(toPlay,channel):
         try:
             mpdClient.add(("yt:" + toPlay))
             sendMessage(toPlay + " added to playlist!", channel)
-        except:
+        except Exception as e:
             sendMessage("Sorry, an error occured with: " + toPlay + "\nPlease try again!", channel)
+            logging.critical(e)
 
 def skip():
 
