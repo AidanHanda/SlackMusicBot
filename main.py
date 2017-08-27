@@ -71,8 +71,10 @@ def playlist(channel):
     try:
         songs = mpdClient.playlistinfo()
         builder = ""
-        for i in songs:
+        for ind,i in enumerate(songs):
             builder += i["pos"] + ". " + i["title"] + "\n"
+            if ind > 5:
+                break
         sendMessage(builder,channel)
     except:
         pass
