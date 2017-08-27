@@ -5,6 +5,8 @@ import logging
 
 #initilize mpd related things
 mpdClient = MPDClient()
+hostname = None
+port = None
 
 #Initiliaze all slack client related things
 sc = None
@@ -49,6 +51,7 @@ def interpret(message):
             current(channel)
 
 def play(toPlay,channel):
+
     if "youtube" in toPlay:
         try:
             mpdClient.add(("yt:" + toPlay))
@@ -56,6 +59,9 @@ def play(toPlay,channel):
         except Exception as e:
             sendMessage(toPlay + " added to playlist... Probably!", channel)
             logging.critical(e)
+            mpdClient.connect(host=hostname, port=port)
+            mpdClient.consume(1)
+
 
 def skip():
 
@@ -77,6 +83,9 @@ def resume():
         logging.error(e)
 
 def current(channel):
+
+    logging.warning(mpdClient.status())
+
     try:
         sendMessage(mpdClient.currentsong()["title"],channel=channel)
     except Exception as e:
@@ -99,15 +108,17 @@ def run(data):
     #Slack
     global mpdClient
     global sc
+    global hostname
+    global port
     sc = SlackClient(data["slack"]["api-key"])
 
     #MPD
     mpdClient.timeout = 10
     mpdClient.idletimeout = None
-    mpdClient.consume = 1
     hostname = data["mopidy"]["host"]
     port = data["mopidy"]["port"]
     mpdClient.connect(host=hostname, port=port)
+    mpdClient.consume(1)
 
     #Start polling
     poll()
