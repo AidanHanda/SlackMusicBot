@@ -1,6 +1,7 @@
 import time
 from slackclient import SlackClient
 from mpd import MPDClient,CommandError
+import logging
 
 #initilize mpd related things
 mpdClient = MPDClient()
@@ -25,6 +26,8 @@ def poll():
                     interpret(m)
 
             time.sleep(1)
+    else:
+        logging.critical("Could not connect to slack - exiting!")
 
 
 def interpret(message):
