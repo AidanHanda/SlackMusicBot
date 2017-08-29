@@ -36,9 +36,9 @@ def interpret(message):
 
     words = message['text'].replace(identifier,'').split()
     channel = message['channel']
-    for ind,word in enumerate(words):
+    for ind, word in enumerate(words):
         if word == "play" and len(words) > ind+1:
-            play(words[ind+1][1:-1], channel )
+            play(words[ind+1][1:-1], channel)
         elif word == "skip":
             skip()
         elif word == "pause":
@@ -49,6 +49,12 @@ def interpret(message):
             playlist(channel)
         elif word == "current":
             current(channel)
+        elif word == "ping":
+            ping(channel)
+
+def ping(channel):
+    sendMessage("Pong!",channel)
+
 
 def play(toPlay,channel):
 
@@ -61,7 +67,6 @@ def play(toPlay,channel):
             logging.critical(e)
             mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
-
 
 def skip():
 
