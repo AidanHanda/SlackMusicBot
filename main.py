@@ -56,7 +56,7 @@ def play(words, ind, channel):
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
             sendMessage(toPlay + " added to playlist... Probably!", channel)
-            logging.critical(e)
+            print(e)
             mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
 
@@ -115,7 +115,6 @@ def poll():
             for m in sc.rtm_read():
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
-            print(commands)
             time.sleep(1)
     else:
         logging.critical("Could not connect to slack - exiting!")
