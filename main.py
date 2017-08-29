@@ -106,7 +106,7 @@ def playlist(words, ind, channel):
                 break
         sendMessage(builder, channel)
     except:
-        pass
+        sendMessage("Oops, nothing here!")
 
 
 def poll():
