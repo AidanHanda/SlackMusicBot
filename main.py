@@ -1,6 +1,6 @@
+import subprocess
 import time
 from slackclient import SlackClient
-import youtube_dl
 from mpd import MPDClient, CommandError
 import logging
 
@@ -115,9 +115,7 @@ def playlist(words, ind, channel):
 
 @command("search")
 def search(words, ind, channel):
-    id = None
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        id = ydl.download(['ytsearch1:' + ' '.join(words[1:])])
+    id = subprocess.check_output('youtube-dl "ytsearch:wild thoughts" --get-id', shell=True).decode("UTF-8").strip()
     play(words,ind,channel,toPlay="https://youtube.com/watch?v=" + id)
 
 def poll():
