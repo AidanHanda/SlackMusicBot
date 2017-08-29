@@ -115,7 +115,7 @@ def playlist(words, ind, channel):
 
 @command("search")
 def search(words, ind, channel):
-    id = subprocess.check_output('youtube-dl "ytsearch:wild thoughts" --get-id', shell=True).decode("UTF-8").strip()
+    id = subprocess.check_output('youtube-dl "ytsearch:' + ' '.join(words[ind:]) + '" --get-id', shell=True).decode("UTF-8").strip()
     play(words,ind,channel,toPlay="https://youtube.com/watch?v=" + id)
 
 def poll():
