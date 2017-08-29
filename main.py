@@ -1,5 +1,6 @@
 import time
 from slackclient import SlackClient
+import youtube_dl
 from mpd import MPDClient, CommandError
 import logging
 
@@ -11,6 +12,9 @@ port = None
 # Initiliaze all slack client related things
 sc = None
 identifier = "<@U6RMM5ZDW>"
+
+#initiliaze youtube-dl options
+ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
 
 # commands
 commands = {}
@@ -48,8 +52,9 @@ def ping(words, ind, channel):
 
 
 @command("play")
-def play(words, ind, channel):
-    toPlay = words[ind + 1][1:-1]
+def play(words, ind, channel, toPlay=None):
+    if not toPlay:
+        toPlay = words[ind + 1][1:-1]
     if "youtube" in toPlay:
         try:
             print(mpdClient.add(("yt:" + toPlay)))
@@ -108,6 +113,12 @@ def playlist(words, ind, channel):
     except:
         sendMessage("Oops, nothing here!")
 
+@command("search")
+def search(words, ind, channel):
+    id = None
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        id = ydl.download(['ytsearch1:' + ' '.join(words[1:])])
+    play(words,ind,channel,toPlay="https://youtube.com/watch?v=" + id)
 
 def poll():
     if sc.rtm_connect():
