@@ -52,7 +52,7 @@ def play(words, ind, channel):
     toPlay = words[ind + 1][1:-1]
     if "youtube" in toPlay:
         try:
-            mpdClient.add(("yt:" + toPlay))
+            print(mpdClient.add(("yt:" + toPlay)))
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
             sendMessage(toPlay + " added to playlist... Probably!", channel)
