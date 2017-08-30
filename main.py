@@ -57,11 +57,11 @@ def play(words, ind, channel, toPlay=None):
         toPlay = words[ind + 1][1:-1]
     if "youtube" in toPlay:
         try:
-            print(mpdClient.add(("yt:" + toPlay)))
+            mpdClient.add(("yt:" + toPlay))
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
             sendMessage(toPlay + " added to playlist... Probably!", channel)
-            print(e)
+            logging.error(e)
             mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
 
@@ -124,7 +124,7 @@ def poll():
             for m in sc.rtm_read():
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
-            time.sleep(1)
+            time.sleep(.5)
     else:
         logging.critical("Could not connect to slack - exiting!")
 
