@@ -52,7 +52,11 @@ def ping(words, ind, channel):
 @command("play")
 def play(words, ind, channel, toPlay=None):
     if not toPlay:
-        toPlay = words[ind + 1][1:-1]
+        try:
+            toPlay = words[ind + 1][1:-1]
+        except:
+            sendMessage("Incorrect use of play!",channel)
+            return
     if "youtube" in toPlay:
         try:
             mpdClient.add(("yt:" + toPlay))
