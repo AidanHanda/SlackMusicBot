@@ -13,8 +13,6 @@ port = None
 sc = None
 identifier = "<@U6RMM5ZDW>"
 
-#initiliaze youtube-dl options
-ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
 
 # commands
 commands = {}
@@ -124,7 +122,7 @@ def poll():
             for m in sc.rtm_read():
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
-            time.sleep(.5)
+            time.sleep(1)
     else:
         logging.critical("Could not connect to slack - exiting!")
 
