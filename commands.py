@@ -19,8 +19,6 @@ def play(words, ind, channel, toPlay=None):
             print(mpdClient.add(("yt:" + toPlay)))
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
-            sendMessage(toPlay + " added to playlist... Probably!", channel)
-            #Debug message with slack
             sendMessage(str(e), channel)
             mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
