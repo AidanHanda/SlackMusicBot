@@ -20,7 +20,8 @@ def play(words, ind, channel, toPlay=None):
             sendMessage(toPlay + " added to playlist!", channel)
         except Exception as e:
             sendMessage(toPlay + " added to playlist... Probably!", channel)
-            print(e)
+            #Debug message with slack
+            sendMessage(str(e), channel)
             mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
 
@@ -76,3 +77,7 @@ def playlist(words, ind, channel):
 def search(words, ind, channel):
     id = subprocess.check_output('youtube-dl "ytsearch:' + ' '.join(words[ind:]) + '" --get-id', shell=True).decode("UTF-8").strip()
     play(words,ind,channel,toPlay="https://youtube.com/watch?v=" + id)
+
+@command("reboot")
+def reboot(words, ind, channel):
+    raise Exception("quit")
