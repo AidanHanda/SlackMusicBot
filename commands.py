@@ -4,7 +4,6 @@ import subprocess
 from core import command, sendMessage
 from settings import mpdClient, hostname, port
 
-
 @command("ping")
 def ping(words, ind, channel):
     sendMessage("Pong!", channel)

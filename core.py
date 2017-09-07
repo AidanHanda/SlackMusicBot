@@ -2,11 +2,13 @@ import time
 
 import logging
 
-from settings import sc, commands, identifier
+import settings
 
+from settings import identifier
+from settings import getSC
 
 def sendMessage(msg,channel):
-    call = sc.api_call(
+    call = getSC().api_call(
         "chat.postMessage",
         channel=channel,
         text=msg
@@ -17,8 +19,7 @@ def sendMessage(msg,channel):
 # Wrapper for all the commands to add them to the command dictionary
 def command(word):
     def dec(func):
-        commands[word] = func
-
+        settings.commands[word] = func
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
 
@@ -28,9 +29,9 @@ def command(word):
 
 
 def poll():
-    if sc.rtm_connect():
+    if getSC().rtm_connect():
         while True:
-            for m in sc.rtm_read():
+            for m in getSC().rtm_read():
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
             time.sleep(1)
@@ -42,5 +43,5 @@ def interpret(message):
     words = message['text'].replace(identifier, '').split()
     channel = message['channel']
     for ind, word in enumerate(words):
-        if word in commands:
-            commands[word](words, ind, channel)
+        if word in settings.commands:
+            settings.commands[word](words, ind, channel)

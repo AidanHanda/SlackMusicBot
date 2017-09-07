@@ -14,10 +14,7 @@ identifier = "<@U6RMM5ZDW>"
 #initiliaze youtube-dl options
 ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
 
-# commands
 commands = {}
-
-
 # END INIT AREA
 # --------------------------------------------------------------#
 
@@ -36,3 +33,9 @@ def init(data):
     port = data["mopidy"]["port"]
     mpdClient.connect(host=hostname, port=port)
     mpdClient.consume(1)
+
+def getSC():
+    return sc
+
+def getCommands():
+    return commands
