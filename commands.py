@@ -27,6 +27,7 @@ def play(words, ind, channel, toPlay=None):
 def skip(words, ind, channel):
     try:
         mpdClient.next()
+        sendMessage("Skipped!",channel)
     except Exception as e:
         logging.error(e)
 
@@ -35,6 +36,7 @@ def skip(words, ind, channel):
 def pause(words, ind, channel):
     try:
         mpdClient.pause()
+        sendMessage("Paused!",channel)
     except Exception as e:
         logging.error(e)
 
@@ -43,6 +45,7 @@ def pause(words, ind, channel):
 def resume(words, ind, channel):
     try:
         mpdClient.play()
+        sendMessage("Resumed!!",channel)
     except Exception as e:
         logging.error(e)
 
