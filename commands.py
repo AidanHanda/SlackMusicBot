@@ -77,4 +77,5 @@ def search(words, ind, channel):
 
 @command("reboot")
 def reboot(words, ind, channel):
+    sendMessage("Raising Exception!", channel)
     raise Exception("quit")
