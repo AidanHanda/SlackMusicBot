@@ -2,7 +2,7 @@ import logging
 import subprocess
 
 from core import command, sendMessage
-from settings import mpdClient, hostname, port, version
+from settings import mpdClient, hostname, port, VERSION_STRING
 
 @command("ping")
 def ping(words, ind, channel):
@@ -85,4 +85,4 @@ def reboot(words, ind, channel):
     
 @command("version")
 def version(words, ind, channel):
-    sendMessage(version, channel)
+    sendMessage(VERSION_STRING, channel)
