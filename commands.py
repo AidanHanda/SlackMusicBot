@@ -1,5 +1,6 @@
 import logging
 import subprocess
+import traceback
 
 from core import command, sendMessage
 from settings import mpdClient, hostname, port, VERSION_STRING
