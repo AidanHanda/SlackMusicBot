@@ -6,6 +6,7 @@ import settings
 
 from settings import identifier
 from settings import getSC
+from settings import mpdClient
 
 def sendMessage(msg,channel):
     call = getSC().api_call(
@@ -31,6 +32,7 @@ def command(word):
 def poll():
     if getSC().rtm_connect():
         while True:
+            mpdClient.ping()
             for m in getSC().rtm_read():
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
