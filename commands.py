@@ -2,7 +2,7 @@ import logging
 import subprocess
 
 from core import command, sendMessage
-from settings import mpdClient, hostname, port
+from settings import mpdClient, hostname, port, version
 
 @command("ping")
 def ping(words, ind, channel):
@@ -82,3 +82,7 @@ def search(words, ind, channel):
 def reboot(words, ind, channel):
     sendMessage("Raising Exception!", channel)
     raise Exception("quit")
+    
+@command("version")
+def version(words, ind, channel):
+    sendMessage(settings.version)
