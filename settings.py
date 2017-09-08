@@ -10,6 +10,7 @@ port = None
 # Initiliaze all slack client related things
 sc = None
 identifier = "<@U6RMM5ZDW>"
+version = "0.1.0"
 
 #initiliaze youtube-dl options
 ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
