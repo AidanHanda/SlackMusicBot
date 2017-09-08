@@ -85,4 +85,4 @@ def reboot(words, ind, channel):
     
 @command("version")
 def version(words, ind, channel):
-    sendMessage(settings.version)
+    sendMessage(settings.version, channel)
