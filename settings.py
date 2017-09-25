@@ -16,6 +16,7 @@ VERSION_STRING = "0.1.0"
 ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
 
 commands = {}
+song_master = {} #Really should use redis for this
 # END INIT AREA
 # --------------------------------------------------------------#
 
@@ -40,3 +41,4 @@ def getSC():
 
 def getCommands():
     return commands
+

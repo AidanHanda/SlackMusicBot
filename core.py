@@ -1,11 +1,9 @@
+import logging
 import time
 
-import logging
-
 import settings
-
-from settings import identifier
 from settings import getSC
+from settings import identifier
 from settings import mpdClient
 
 def sendMessage(msg,channel):
@@ -15,6 +13,13 @@ def sendMessage(msg,channel):
         text=msg
     )
 
+def sendPrivateMessage(Request, msg):
+    getSC().api_call(
+        "chat.postEphemeral",
+        channel=Request.channel,
+        text=msg,
+        user=Request.raw_message['user']
+    )
 
 
 # Wrapper for all the commands to add them to the command dictionary
@@ -46,4 +51,13 @@ def interpret(message):
     channel = message['channel']
     for ind, word in enumerate(words):
         if word in settings.commands:
-            settings.commands[word](words, ind, channel)
+            settings.commands[word](Message(message, words, ind, channel))
+
+
+class Message:
+    def __init__(self, raw_message, words, ind, channel):
+        self.raw_message = raw_message
+        self.user = raw_message['user']
+        self.words = words
+        self.ind = ind
+        self.channel = channel
