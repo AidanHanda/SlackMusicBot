@@ -40,7 +40,7 @@ def play(Request, toPlay=None):
 @command("skip")
 def skip(Request):
     try:
-        if song_master.get(mpdClient.currentsong()['id']) == Request.user:
+        if song_master.get(mpdClient.currentsong()['id']) == Request.user or True: #Enabled for now until redis is configured
             mpdClient.next()
             sendMessage("Song Skipped!", Request.channel)
         else:
