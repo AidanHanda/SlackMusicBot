@@ -1,7 +1,6 @@
 import logging
 import subprocess
 import traceback
-import alsaudio
 from core import command, sendMessage, sendPrivateMessage
 from settings import mpdClient, hostname, port, VERSION_STRING, song_master
 
