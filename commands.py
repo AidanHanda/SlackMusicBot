@@ -8,7 +8,7 @@ from settings import mpdClient, hostname, port, VERSION_STRING, song_master
 
 @command("ping")
 def ping(Request):
-    sendPrivateMessage(Request, "Pong!")
+    sendPrivateMessage(Request, "Pong!, " +str(Request.user) )
 
 
 @command("play")
