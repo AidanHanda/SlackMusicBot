@@ -8,7 +8,7 @@ lockdown = False
 
 @command("ping")
 def ping(Request):
-    sendPrivateMessage(Request, "Pong!") )
+    sendPrivateMessage(Request, "Pong!")
     
 @command("Lockdown")
 def lockdown(Request):
