@@ -1,9 +1,11 @@
 import logging
 import subprocess
 import traceback
-#import alsaudio
+
+# import alsaudio
 from core import command, sendMessage, sendPrivateMessage
 from settings import mpdClient, hostname, port, VERSION_STRING, song_master
+
 
 @command("ping")
 def ping(Request):
@@ -37,6 +39,7 @@ def play(Request, toPlay=None):
 
 @command("skip")
 def skip(Request):
+    print(mpdClient.currentsong())
     try:
         if song_master.get(mpdClient.currentsong()['id']) == Request.user or True: #Enabled for now until redis is configured
             mpdClient.next()
