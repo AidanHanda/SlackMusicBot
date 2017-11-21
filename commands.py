@@ -4,21 +4,13 @@ import traceback
 #import alsaudio
 from core import command, sendMessage, sendPrivateMessage
 from settings import mpdClient, hostname, port, VERSION_STRING, song_master
-lockdown = False
 
 @command("ping")
 def ping(Request):
     sendPrivateMessage(Request, "Pong!")
     
-@command("Lockdown")
-def lockdown(Request):
-    lockdown = True
-
 @command("play")
 def play(Request, toPlay=None):
-    if lockdown and str(Request.user) != "U6RN0722H":
-        sendPrivateMessage(Request, "Music Bot Locked Down")
-        return
     if not toPlay:
         try:
             toPlay = Request.words[Request.ind + 1][1:-1]
@@ -97,9 +89,6 @@ def playlist(Request):
 
 @command("search")
 def search(Request):
-    if lockdown and str(Request.user) != "U6RN0722H":
-        sendPrivateMessage(Request, "Music Bot Locked Down")
-        return
     id = subprocess.check_output('youtube-dl "ytsearch:' + ' '.join(Request.words[Request.ind:]) + '" --get-id',
                                  shell=True).decode("UTF-8").strip()
     play(Request, toPlay="https://youtube.com/watch?v=" + id)
