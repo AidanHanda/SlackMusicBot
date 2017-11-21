@@ -52,7 +52,9 @@ def interpret(message):
     channel = message['channel']
     for ind, word in enumerate(words):
         if word in settings.commands:
+            #DEBUGGING
             logging.log(logging.ERROR, "Recieved Command: " + word)
+            logging.log(logging.INFO, str(mpdClient.playlistinfo()))
             settings.commands[word](Message(message, words, ind, channel))
 
 
