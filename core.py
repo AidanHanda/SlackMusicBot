@@ -6,6 +6,7 @@ from settings import getSC
 from settings import identifier
 from settings import mpdClient
 
+
 def sendMessage(msg,channel):
     call = getSC().api_call(
         "chat.postMessage",
@@ -51,6 +52,7 @@ def interpret(message):
     channel = message['channel']
     for ind, word in enumerate(words):
         if word in settings.commands:
+            logging.ERROR("Recieved Command: " + word)
             settings.commands[word](Message(message, words, ind, channel))
 
 
