@@ -24,6 +24,7 @@ def play(Request, toPlay=None):
     if "youtube" in toPlay:
         try:
             r = requests.post('http://localhost:6680/mopidy/rpc', data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": "yt:" + toPlay}})
+            print(r)
             all = mpdClient.playlistinfo()
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
