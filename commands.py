@@ -21,7 +21,7 @@ def play(Request, toPlay=None):
             return
     if "youtube" in toPlay:
         try:
-            id = mpdClient.addid(("yt:" + toPlay))
+            id = mpdClient.add(("yt:" + toPlay))
             all = mpdClient.playlistinfo()
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
