@@ -1,6 +1,8 @@
 import logging
 import time
 
+import requests
+
 import settings
 from settings import getSC
 from settings import identifier
@@ -64,3 +66,9 @@ class Message:
         self.words = words
         self.ind = ind
         self.channel = channel
+
+def addSong(url):
+    r = requests.post('http://localhost:6680/mopidy/rpc',
+                      data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": "yt:" + url}})
+
+    print(r)

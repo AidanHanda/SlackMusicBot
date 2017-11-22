@@ -2,11 +2,9 @@ import logging
 import subprocess
 import traceback
 
-import requests
-
 # import alsaudio
-from core import command, sendMessage, sendPrivateMessage
-from settings import mpdClient, hostname, port, VERSION_STRING, song_master
+from core import command, sendMessage, sendPrivateMessage, addSong
+from settings import mpdClient, VERSION_STRING, song_master
 
 
 @command("ping")
@@ -23,8 +21,7 @@ def play(Request, toPlay=None):
             return
     if "youtube" in toPlay:
         try:
-            r = requests.post('http://localhost:6680/mopidy/rpc', data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": "yt:" + toPlay}})
-            print(r)
+            addSong(toPlay)
             all = mpdClient.playlistinfo()
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
@@ -36,7 +33,6 @@ def play(Request, toPlay=None):
             print(song_master)
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
-            mpdClient.connect(host=hostname, port=port)
             mpdClient.consume(1)
 
 
