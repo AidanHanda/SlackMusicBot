@@ -71,4 +71,4 @@ def addSong(url):
     r = requests.post('http://localhost:6680/mopidy/rpc',
                       data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": "yt:" + url}})
 
-    print(r)
+    print(r.json())
