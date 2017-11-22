@@ -21,11 +21,11 @@ def play(Request, toPlay=None):
             return
     if "youtube" in toPlay:
         try:
-            mpdClient.add(("yt:" + toPlay))
+            id = mpdClient.addid(("yt:" + toPlay))
             all = mpdClient.playlistinfo()
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
-            song_master[song['id']] = Request.user
+            song_master[id] = Request.user
             keep = [b['id'] for b in all]
             for key in song_master:
                 if key not in keep:
