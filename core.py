@@ -68,7 +68,10 @@ class Message:
         self.channel = channel
 
 def addSong(url):
+    url = str(url)
+    finalurl = "yt:"+url
+    print(finalurl)
     r = requests.post('http://localhost:6680/mopidy/rpc',
-                      data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": "yt:" + url}})
+                      data={"jsonrpc": "2.0", "id": 1, "method": "core.tracklist.add","params": {"uri": finalurl}})
 
     print(r.json())
