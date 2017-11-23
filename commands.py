@@ -2,8 +2,6 @@ import logging
 import subprocess
 import traceback
 
-import mopidycli
-
 # import alsaudio
 from core import command, sendMessage, sendPrivateMessage, addSong
 from settings import mpdClient, VERSION_STRING, song_master
@@ -80,7 +78,6 @@ def current(Request):
 @command("playlist")
 def playlist(Request):
     try:
-        print(mopidycli.tracklist())
         songs = mpdClient.playlistinfo()
         builder = "First 5: \n"
         for count, i in enumerate(songs):
