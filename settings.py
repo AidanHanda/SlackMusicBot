@@ -1,3 +1,4 @@
+import os
 
 # initilize mpd related things
 from mpd import MPDClient
@@ -26,7 +27,8 @@ def init(data):
     global sc
     global hostname
     global port
-    sc = SlackClient(data["slack"]["api-key"])
+    possiblekey = os.environ['SLACK-API-KEY']
+    sc = SlackClient(possiblekey if possiblekey else data["slack"]["api-key"])
 
     # MPD
     mpdClient.timeout = 10
