@@ -27,7 +27,7 @@ def init(data):
     global sc
     global hostname
     global port
-    possiblekey = os.environ['SLACK-API-KEY']
+    possiblekey = os.environ.get('SLACK-API-KEY')
     sc = SlackClient(possiblekey if possiblekey else data["slack"]["api-key"])
 
     # MPD
