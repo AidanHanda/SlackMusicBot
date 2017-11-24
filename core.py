@@ -80,7 +80,3 @@ def addSong(url):
 
     print(r.json())
 
-
-class RedisInteractor:
-
-    def
