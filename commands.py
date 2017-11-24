@@ -8,24 +8,25 @@ from settings import mpdClient, VERSION_STRING, song_master
 
 @command("ping")
 def ping(Request):
-    '''
+    """
     Allows one to test the music bot
     
     :param Request: General context of the command given
     :return: Sends a private message to the user that sent ping
-    '''
+    """
 
     sendPrivateMessage(Request, "Pong!")
-    
+
+
 @command("play")
 def play(Request, toPlay=None):
-    '''
+    """
     Plays the song from youtube
     
     :param Request: General context of command given
     :param toPlay: Optional param that is passed if the song that is being played was found using search rather than directly
     :return: Adds the song to the mopidy queue
-    '''
+    """
     if not toPlay:
         try:
             toPlay = Request.words[Request.ind + 1][1:-1]
@@ -46,13 +47,14 @@ def play(Request, toPlay=None):
 
 @command("skip")
 def skip(Request):
-    '''
+    """
     Skips the current song playing
     
     :param Request: The general context of the command given
-    '''
+    """
     try:
-        if song_master.get(mpdClient.currentsong()['id']) == Request.user or True: #Enabled for now until redis is configured
+        if song_master.get(
+                mpdClient.currentsong()['id']) == Request.user or True:  # Enabled for now until redis is configured
             mpdClient.next()
             sendMessage("Song Skipped!", Request.channel)
         else:
@@ -63,12 +65,12 @@ def skip(Request):
 
 @command("pause")
 def pause(Request):
-    '''
+    """
     Pauses the song that is currently playing
     
     :param Request: The general context of the command given
     :return: 
-    '''
+    """
 
     try:
         mpdClient.pause()
@@ -79,12 +81,12 @@ def pause(Request):
 
 @command("resume")
 def resume(Request):
-    '''
+    """
     Resumes the song that is currently playing
     
     :param Request: The general context of the command given
     :return: 
-    '''
+    """
     try:
         mpdClient.play()
         sendMessage("Resumed!!", Request.channel)
@@ -94,11 +96,11 @@ def resume(Request):
 
 @command("currentsong")
 def current(Request):
-    '''
+    """
     Sends an announcment telling the current song the current song 
     :param Request: The general context of the command given
     :return: 
-    '''
+    """
     try:
         sendMessage(mpdClient.currentsong()["title"], channel=Request.channel)
     except Exception as e:
@@ -107,16 +109,16 @@ def current(Request):
 
 @command("playlist")
 def playlist(Request):
-    '''
+    """
     Sends an announcement to the channel about the next 5 songs in the queue
     :param Request: The general context of the command given
     :return: 
-    '''
+    """
     try:
         songs = mpdClient.playlistinfo()
         builder = "First 5: \n"
         for count, i in enumerate(songs):
-            builder += str(count+1) + ". " + i["title"] + "\n"
+            builder += str(count + 1) + ". " + i["title"] + "\n"
             if count >= 5:
                 break
         sendMessage(builder, Request.channel)
@@ -126,11 +128,11 @@ def playlist(Request):
 
 @command("search")
 def search(Request):
-    '''
+    """
     Uses youtube-dl to search youtube for a song given paramters
     :param Request: The general context of the command given; also in this case holds the search terms in message
     :return: 
-    '''
+    """
     sendPrivateMessage(Request, "Searching!")
     id = subprocess.check_output('youtube-dl "ytsearch:' + ' '.join(Request.words[Request.ind:]) + '" --get-id',
                                  shell=True).decode("UTF-8").strip()
@@ -139,10 +141,10 @@ def search(Request):
 
 @command("version")
 def version(Request):
-    '''
+    """
     Sends the version of the bot in the chat
     
     :param Request: The general context of the command given
     :return: 
-    '''
+    """
     sendMessage(VERSION_STRING, Request.channel)
