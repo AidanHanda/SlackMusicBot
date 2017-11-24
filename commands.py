@@ -38,12 +38,7 @@ def play(Request, toPlay=None):
             all = mpdClient.playlistinfo()
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
-            song_master[song['id']] = Request.user
-            keep = [b['id'] for b in all]
-            for key in song_master:
-                if key not in keep:
-                    del song_master[key]
-            print(song_master)
+            print(song)
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
             mpdClient.consume(1)

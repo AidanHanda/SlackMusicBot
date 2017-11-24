@@ -47,8 +47,6 @@ def init(data):
     mpdClient.connect(host=hostname, port=port)
     mpdClient.consume(1)
 
-    print(redis_db.keys())
-
 def getSC():
     '''
     Get method for the slack-client instance
