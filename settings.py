@@ -1,5 +1,6 @@
 import os
 
+import redis
 # initilize mpd related things
 from mpd import MPDClient
 from slackclient import SlackClient
@@ -18,6 +19,8 @@ ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
 
 commands = {}
 song_master = {} #Really should use redis for this
+
+redis_db = redis.StrictRedis(host="localhost", port=6379, db=0)  # Redis
 # END INIT AREA
 # --------------------------------------------------------------#
 
@@ -28,7 +31,6 @@ def init(data):
     global hostname
     global port
     possiblekey = os.environ.get('SLACKAPIKEY')
-    print(os.environ)
     sc = SlackClient(possiblekey if possiblekey else data["slack"]["api-key"])
 
     # MPD
@@ -38,6 +40,8 @@ def init(data):
     port = data["mopidy"]["port"]
     mpdClient.connect(host=hostname, port=port)
     mpdClient.consume(1)
+
+    print(redis_db.keys())
 
 def getSC():
     return sc
