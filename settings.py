@@ -25,6 +25,12 @@ redis_db = redis.StrictRedis(host="localhost", port=6379, db=0)  # Redis
 # --------------------------------------------------------------#
 
 def init(data):
+    '''
+    Initializes the general state of the application
+    
+    :param data: The config data
+    :return: 
+    '''
     # Slack
     global mpdClient
     global sc
@@ -44,8 +50,16 @@ def init(data):
     print(redis_db.keys())
 
 def getSC():
+    '''
+    Get method for the slack-client instance
+    :return: Slack Client instance
+    '''
     return sc
 
 def getCommands():
+    '''
+    Get method for the list of commands
+    :return: List of commands
+    '''
     return commands
 

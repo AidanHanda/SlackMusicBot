@@ -1,7 +1,12 @@
 from core import poll
 from settings import init
-import commands #Imported so all of the commands register!
+
 
 def run(data):
+    '''
+    Runs the rest of the app 
+    :param data: The data from config
+    :return: 
+    '''
     init(data)
     poll()
