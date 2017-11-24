@@ -59,7 +59,7 @@ def interpret(message):
         if word in settings.commands:
             #DEBUGGING
             logging.log(logging.ERROR, "Recieved Command: " + word)
-            _thread.start_new_thread(settings.commands[word](Message(message, words, ind, channel)))
+            _thread.start_new_thread(settings.commands[word], (Message(message, words, ind, channel)))
 
 
 class Message:
