@@ -68,7 +68,7 @@ def poll():
         while True:
             mpdClient.ping()
             for m in getSC().rtm_read():
-                print(m)
+                print(m.get("text"))
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
             time.sleep(1)
