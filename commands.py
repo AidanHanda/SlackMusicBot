@@ -91,6 +91,7 @@ def playlist(Request):
 
 @command("search")
 def search(Request):
+    sendPrivateMessage(Request, "Searching!")
     id = subprocess.check_output('youtube-dl "ytsearch:' + ' '.join(Request.words[Request.ind:]) + '" --get-id',
                                  shell=True).decode("UTF-8").strip()
     play(Request, toPlay="https://youtube.com/watch?v=" + id)
