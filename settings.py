@@ -3,6 +3,7 @@ import os
 import redis
 # initilize mpd related things
 from mpd import MPDClient
+import commands
 from slackclient import SlackClient
 
 mpdClient = MPDClient()
