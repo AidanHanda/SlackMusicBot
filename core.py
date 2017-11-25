@@ -69,6 +69,7 @@ def poll():
         while True:
             mpdClient.ping()
             for m in getSC().rtm_read():
+                print(m.get("text"))
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
                     interpret(m)
             time.sleep(1)
@@ -82,6 +83,7 @@ def interpret(message):
     :param message: The message to be checked for commands
     :return: 
     """
+    print(message)
     words = message['text'].replace(identifier, '').split()
     channel = message['channel']
     for ind, word in enumerate(words):
