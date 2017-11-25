@@ -82,6 +82,7 @@ def interpret(message):
     :param message: The message to be checked for commands
     :return: 
     """
+    print(message)
     words = message['text'].replace(identifier, '').split()
     channel = message['channel']
     for ind, word in enumerate(words):
