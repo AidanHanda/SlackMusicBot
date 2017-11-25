@@ -51,7 +51,6 @@ def command(word):
     """
     def dec(func):
         settings.commands[word] = func
-        print(settings.commands)
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
 
