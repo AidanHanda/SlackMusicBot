@@ -42,22 +42,6 @@ def sendPrivateMessage(Request, msg):
     )
 
 
-# Wrapper for all the commands to add them to the command dictionary
-def command(word):
-    """
-    The general command structure that is used to decorate all commands within commands.py
-    :param word: The word that should be looked for to call the function when it is mentioned
-    :return: 
-    """
-    def dec(func):
-        settings.commands[word] = func
-        def wrapper(*args, **kwargs):
-            func(*args, **kwargs)
-
-        return wrapper
-
-    return dec
-
 
 def poll():
     """

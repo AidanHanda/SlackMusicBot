@@ -2,8 +2,8 @@ import logging
 import subprocess
 import traceback
 
-from core import command, sendMessage, sendPrivateMessage, addSong
-from settings import mpdClient, VERSION_STRING, song_master
+from core import sendMessage, sendPrivateMessage, addSong
+from settings import mpdClient, VERSION_STRING, song_master, command
 
 
 @command("ping")
