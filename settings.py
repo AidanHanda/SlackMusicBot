@@ -70,6 +70,7 @@ def command(word):
     :return: 
     """
     def dec(func):
+        print(word)
         commands[word] = func
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
