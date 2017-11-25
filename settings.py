@@ -5,8 +5,6 @@ import redis
 from mpd import MPDClient
 from slackclient import SlackClient
 
-import commands
-
 mpdClient = MPDClient()
 hostname = None
 port = None
