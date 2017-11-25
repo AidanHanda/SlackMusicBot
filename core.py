@@ -43,6 +43,7 @@ def sendPrivateMessage(Request, msg):
 
 
 
+
 def poll():
     """
     The keep-alive with mopidy server as well as the searcher for command words in the chat

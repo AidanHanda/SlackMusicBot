@@ -19,3 +19,4 @@ parser = argparse.ArgumentParser(description='Start the slack bot')
 parser.add_argument('filepath', metavar='f')
 args = parser.parse_args()
 parse_config(args.filepath)
+
