@@ -12,7 +12,7 @@ port = None
 # Initiliaze all slack client related things
 sc = None
 identifier = "<@U6RMM5ZDW>"
-VERSION_STRING = "0.1.1"
+VERSION_STRING = "0.1.2"
 
 #initiliaze youtube-dl options
 ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
@@ -47,7 +47,7 @@ def init(data):
     mpdClient.connect(host=hostname, port=port)
     mpdClient.consume(1)
     import commands
-    commands.init = 0
+    commands.init = 0  # Works because its initizializing all the commands into the registry
 
 def getSC():
     """
