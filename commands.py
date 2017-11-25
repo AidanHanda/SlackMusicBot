@@ -2,8 +2,25 @@ import logging
 import subprocess
 import traceback
 
+import settings
 from core import sendMessage, sendPrivateMessage, addSong
-from settings import mpdClient, VERSION_STRING, song_master, command
+from settings import mpdClient, VERSION_STRING, song_master
+
+def command(word):
+    """
+    The general command structure that is used to decorate all commands within commands.py
+    :param word: The word that should be looked for to call the function when it is mentioned
+    :return: 
+    """
+    def dec(func):
+        print(word)
+        settings.commands[word] = func
+        def wrapper(*args, **kwargs):
+            func(*args, **kwargs)
+
+        return wrapper
+
+    return dec
 
 
 @command("ping")
@@ -148,4 +165,6 @@ def version(Request):
     :return: 
     """
     sendMessage(VERSION_STRING, Request.channel)
+
+
 

@@ -3,7 +3,6 @@ import os
 import redis
 # initilize mpd related things
 from mpd import MPDClient
-import commands
 from slackclient import SlackClient
 
 mpdClient = MPDClient()
@@ -47,7 +46,8 @@ def init(data):
     port = data["mopidy"]["port"]
     mpdClient.connect(host=hostname, port=port)
     mpdClient.consume(1)
-    print(redis_db.keys())
+    import commands
+    commands.init = 0
 
 def getSC():
     """
@@ -64,18 +64,3 @@ def getCommands():
     return commands
 
 # Wrapper for all the commands to add them to the command dictionary
-def command(word):
-    """
-    The general command structure that is used to decorate all commands within commands.py
-    :param word: The word that should be looked for to call the function when it is mentioned
-    :return: 
-    """
-    def dec(func):
-        print(word)
-        commands[word] = func
-        def wrapper(*args, **kwargs):
-            func(*args, **kwargs)
-
-        return wrapper
-
-    return dec
