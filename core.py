@@ -86,6 +86,7 @@ def interpret(message):
     words = message['text'].replace(identifier, '').split()
     channel = message['channel']
     for ind, word in enumerate(words):
+        print(settings.commands)
         if word in settings.commands:
             #DEBUGGING
             logging.log(logging.ERROR, "Recieved Command: " + word)
