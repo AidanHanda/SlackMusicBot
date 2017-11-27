@@ -72,7 +72,7 @@ def skip(Request):
     """
     try:
         if settings.redis_db.get(
-                mpdClient.currentsong()['id']) == Request.user:  # Enabled for now until redis is configured
+                mpdClient.currentsong()['id']).decode('utf-8') == Request.user:
             mpdClient.next()
             sendMessage("Song Skipped!", Request.channel)
         else:
