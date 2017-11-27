@@ -165,7 +165,7 @@ def version(Request):
     Sends the version of the bot in the chat
     
     :param Request: The general context of the command given
-    :return: 
+    :return:  
     """
     sendMessage(VERSION_STRING, Request.channel)
 
