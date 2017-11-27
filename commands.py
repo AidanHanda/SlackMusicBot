@@ -57,6 +57,7 @@ def play(Request, toPlay=None):
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
             settings.redis_db.set(song['id'], Request.user)
+            print(Request.raw_message)
             print(song)
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
