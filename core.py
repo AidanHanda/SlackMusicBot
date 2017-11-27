@@ -45,13 +45,11 @@ def sendPrivateMessage(Request, msg):
 def getUserInfo(userid):
     """
     Gets information about the user
-    :param userid: 
+    :param userid: The id of the user to get info about
     :return: 
     """
-    getSC().api_call(
-        "users.profile.get",
-        user=userid
-    )
+    payload = {'token': settings.slackkey, 'user': userid, 'pretty':1}
+    return requests.get('https://slack.com/api/users.info', params=payload)
 
 def poll():
     """

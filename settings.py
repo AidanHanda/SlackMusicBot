@@ -13,6 +13,7 @@ port = None
 sc = None
 identifier = "<@U6RMM5ZDW>"
 VERSION_STRING = "0.1.2"
+slackkey = None
 
 #initiliaze youtube-dl options
 ydl_opts = {"simulate":True,"quiet":True,"forceid":True}
@@ -36,8 +37,10 @@ def init(data):
     global sc
     global hostname
     global port
+    global slackkey
     possiblekey = os.environ.get('SLACKAPIKEY')
-    sc = SlackClient(possiblekey if possiblekey else data["slack"]["api-key"])
+    slackkey = possiblekey if possiblekey else data["slack"]["api-key"]
+    sc = SlackClient(slackkey)
 
     # MPD
     mpdClient.timeout = 10
