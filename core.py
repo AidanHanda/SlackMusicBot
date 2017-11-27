@@ -49,7 +49,7 @@ def getUserInfo(userid):
     :return: 
     """
     getSC().api_call(
-        "users.info",
+        "users.profile.get",
         user=userid
     )
 
@@ -62,8 +62,8 @@ def poll():
         while True:
             mpdClient.ping()
             for m in getSC().rtm_read():
-                print(m)
                 if m['type'] == 'message' and m.get("text") and identifier in m['text']:
+                    print(m)
                     interpret(m)
             time.sleep(1)
     else:
