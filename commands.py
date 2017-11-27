@@ -58,6 +58,7 @@ def play(Request, toPlay=None):
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
             settings.redis_db.set(song['id'], Request.user)
             settings.redis_db.set(Request.user, getUserInfo(Request.raw_message['user']))
+            print(settings.redis_db.keys())
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
             mpdClient.consume(1)
@@ -122,8 +123,11 @@ def current(Request):
     """
     try:
         currentSong = mpdClient.currentsong()
-        sendMessage(currentSong["title"] + "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(currentSong['id'])), channel=Request.channel)
+        sendMessage(currentSong["title"] +
+                    "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(currentSong['id'])),
+                    channel=Request.channel)
     except Exception as e:
+
         logging.error(e)
 
 
@@ -138,7 +142,8 @@ def playlist(Request):
         songs = mpdClient.playlistinfo()
         builder = "First 5: \n"
         for count, i in enumerate(songs):
-            builder += str(count + 1) + ". " + i["title"] + "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(i['id'])) + "\n"
+            builder += str(count + 1) + ". " + i["title"] + \
+                       "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(i['id'])) + "\n"
             if count >= 5:
                 break
         sendMessage(builder, Request.channel)
