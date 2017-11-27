@@ -79,6 +79,7 @@ def skip(Request):
             sendPrivateMessage(Request, "I don't think you're the one who requested this song! It looks like it was: " +
                                settings.redis_db.get(settings.redis_db.get(mpdClient.currentsong()['id'])))
     except Exception as e:
+        sendMessage(traceback.format_exc(), Request.channel)
         logging.error(e)
 
 
