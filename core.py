@@ -101,4 +101,3 @@ def addSong(url):
     r = requests.post('http://localhost:6680/mopidy/rpc',data = json.dumps(data))
 
     print(r.json())
-
