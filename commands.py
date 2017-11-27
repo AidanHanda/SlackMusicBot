@@ -58,7 +58,7 @@ def play(Request, toPlay=None):
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
             settings.redis_db.set(song['id'], Request.user)
             settings.redis_db.set(Request.user, getUserInfo(Request.raw_message['user']))
-            print(settings.redis_db.keys())
+            print(settings.redis_db.get(settings.redis_db.get(song['id'])))
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
             mpdClient.consume(1)
