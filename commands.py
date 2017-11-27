@@ -123,8 +123,9 @@ def current(Request):
     try:
         currentSong = mpdClient.currentsong()
         sendMessage(currentSong["title"] +
-                    "\nRequested by: " + str(settings.redis_db.get(settings.redis_db.get(currentSong['id'])),
-                    channel=Request.channel))
+                    "\nRequested by: " +
+                    settings.redis_db.get(settings.redis_db.get(currentSong['id'])).decode("utf-8"),
+                    channel=Request.channel)
     except Exception as e:
 
         logging.error(e)
@@ -142,7 +143,7 @@ def playlist(Request):
         builder = "First 5: \n"
         for count, i in enumerate(songs):
             builder += str(count + 1) + ". " + i["title"] + \
-                       "\nRequested by: " + str(settings.redis_db.get(settings.redis_db.get(i['id']))) + "\n"
+                       "\nRequested by: " + (settings.redis_db.get(settings.redis_db.get(i['id']))).decode("utf-8") + "\n"
             if count >= 5:
                 break
         sendMessage(builder, Request.channel)
