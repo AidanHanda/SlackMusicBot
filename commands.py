@@ -3,7 +3,7 @@ import subprocess
 import traceback
 
 import settings
-from core import sendMessage, sendPrivateMessage, addSong, getUserInfo
+from core import sendMessage, sendPrivateMessage, addSong, getUserInfo, resumeSong
 from settings import mpdClient, VERSION_STRING, song_master
 
 def command(word):
@@ -107,7 +107,7 @@ def resume(Request):
     :return: 
     """
     try:
-        mpdClient.play()
+        resumeSong()
         sendMessage("Resumed!!", Request.channel)
     except Exception as e:
         logging.error(e)

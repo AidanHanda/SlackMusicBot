@@ -108,3 +108,8 @@ def addSong(url):
     r = requests.post('http://localhost:6680/mopidy/rpc',data = json.dumps(data))
 
     print(r.json())
+
+def resumeSong():
+    data = {"jsonrpc": "2.0", "id": 1, "method": "core.playbackcontroller.play", "params": {}}
+    pprint.pprint(data)
+    r = requests.post('http://localhost:6680/mopidy/rpc', data=json.dumps(data))
