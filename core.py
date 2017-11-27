@@ -49,7 +49,7 @@ def getUserInfo(userid):
     :return: 
     """
     payload = {'token': settings.slackkey, 'user': userid, 'pretty':1}
-    return json.loads(requests.get('https://slack.com/api/users.info', params=payload).text)['user']['name']
+    return json.loads(requests.get('https://slack.com/api/users.info', params=payload).text).get('user').get('name')
 
 def poll():
     """
