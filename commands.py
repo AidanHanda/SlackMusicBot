@@ -3,7 +3,7 @@ import subprocess
 import traceback
 
 import settings
-from core import sendMessage, sendPrivateMessage, addSong
+from core import sendMessage, sendPrivateMessage, addSong, getUserInfo
 from settings import mpdClient, VERSION_STRING, song_master
 
 def command(word):
@@ -57,7 +57,7 @@ def play(Request, toPlay=None):
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
             settings.redis_db.set(song['id'], Request.user)
-            print(settings.redis_db.keys())
+            print(getUserInfo(Request.user))
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
             mpdClient.consume(1)

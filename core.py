@@ -42,7 +42,16 @@ def sendPrivateMessage(Request, msg):
     )
 
 
-
+def getUserInfo(userid):
+    """
+    Gets information about the user
+    :param userid: 
+    :return: 
+    """
+    getSC().api_call(
+        "users.info",
+        user=userid
+    )
 
 def poll():
     """
