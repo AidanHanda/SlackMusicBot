@@ -57,7 +57,7 @@ def play(Request, toPlay=None):
             song = all[-1]
             sendMessage('"' + song['title'] + '"' + " -  added to playlist!", Request.channel)
             settings.redis_db.set(song['id'], Request.user)
-            print(getUserInfo(Request.raw_message['user']))
+            settings.redis_db.set(Request.user, getUserInfo(Request.raw_message['user']))
         except Exception as e:
             sendMessage(traceback.format_exc() + "Link: " + toPlay, Request.channel)
             mpdClient.consume(1)
@@ -71,12 +71,13 @@ def skip(Request):
     :param Request: The general context of the command given
     """
     try:
-        if song_master.get(
-                mpdClient.currentsong()['id']) == Request.user or True:  # Enabled for now until redis is configured
+        if settings.redis_db.get(
+                mpdClient.currentsong()['id']) == Request.user:  # Enabled for now until redis is configured
             mpdClient.next()
             sendMessage("Song Skipped!", Request.channel)
         else:
-            sendPrivateMessage(Request, "I don't think you're the one who requested this song!")
+            sendPrivateMessage(Request, "I don't think you're the one who requested this song! It looks like it was: " +
+                               settings.redis_db.get(settings.redis_db.get(mpdClient.currentsong()['id'])))
     except Exception as e:
         logging.error(e)
 
@@ -120,7 +121,8 @@ def current(Request):
     :return: 
     """
     try:
-        sendMessage(mpdClient.currentsong()["title"], channel=Request.channel)
+        currentSong = mpdClient.currentsong()
+        sendMessage(currentSong["title"] + "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(currentSong['id'])), channel=Request.channel)
     except Exception as e:
         logging.error(e)
 
@@ -136,7 +138,7 @@ def playlist(Request):
         songs = mpdClient.playlistinfo()
         builder = "First 5: \n"
         for count, i in enumerate(songs):
-            builder += str(count + 1) + ". " + i["title"] + "\n"
+            builder += str(count + 1) + ". " + i["title"] + "\nRequested by: " + settings.redis_db.get(settings.redis_db.get(i['id'])) + "\n"
             if count >= 5:
                 break
         sendMessage(builder, Request.channel)
