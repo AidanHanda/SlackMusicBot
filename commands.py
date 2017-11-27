@@ -107,7 +107,7 @@ def resume(Request):
     :return: 
     """
     try:
-        resumeSong()
+        mpdClient.resume()
         sendMessage("Resumed!!", Request.channel)
     except Exception as e:
         logging.error(e)
