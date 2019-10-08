@@ -1,4 +1,5 @@
 # Slack Music Bot
+(First Iteration of Go Music Bot)
 
 A bot for slack that connects to an MPD server (In this instance: Mopidy) and allows users to provide Youtube links as well as search Youtube for songs to play.
 
