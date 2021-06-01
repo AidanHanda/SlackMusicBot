@@ -9,7 +9,7 @@ redis==2.10.6
 requests==2.18.4
 six==1.10.0
 slackclient==1.0.7
-urllib3==1.22
+urllib3==1.26.5
 websocket-client==0.44.0
 youtube-dl==2017.8.18
 
